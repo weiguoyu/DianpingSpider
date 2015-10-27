@@ -25,7 +25,7 @@ CONCURRENT_REQUESTS=16
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-#DOWNLOAD_DELAY=3
+DOWNLOAD_DELAY=3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN=16
 #CONCURRENT_REQUESTS_PER_IP=16
@@ -48,6 +48,8 @@ DEFAULT_REQUEST_HEADERS = {
 #SPIDER_MIDDLEWARES = {
 #    'dianping.middlewares.MyCustomSpiderMiddleware': 543,
 #}
+
+DUPLICATE_CLASS = 'dianping.middlewares.duplicate_dilter.DuplicateFilter'
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
@@ -88,13 +90,15 @@ ITEM_PIPELINES = {
 # NOTE: AutoThrottle will honour the standard settings for concurrency and delay
 AUTOTHROTTLE_ENABLED=True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY=10
+AUTOTHROTTLE_START_DELAY=7
 # The maximum download delay to be set in case of high latencies
 AUTOTHROTTLE_MAX_DELAY=60
 # Enable showing throttling stats for every response received:
 AUTOTHROTTLE_DEBUG=False
 
 REDIRECT_MAX_TIMES=0
+
+# DEPTH_LIMIT = 5
 
 # Enable and configure HTTP caching (disabled by default)
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
@@ -107,4 +111,4 @@ REDIRECT_MAX_TIMES=0
 MYSQL_HOST='localhost'
 MYSQL_DBNAME='dianping'
 MYSQL_USER='root'
-MYSQL_PASSWD='123456'
+MYSQL_PASSWD=''
