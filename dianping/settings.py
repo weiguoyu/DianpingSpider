@@ -98,7 +98,7 @@ AUTOTHROTTLE_DEBUG=False
 
 REDIRECT_MAX_TIMES=0
 
-DEPTH_LIMIT = 5
+# DEPTH_LIMIT = 5
 
 # Enable and configure HTTP caching (disabled by default)
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings
