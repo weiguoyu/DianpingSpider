@@ -46,12 +46,6 @@ DEFAULT_REQUEST_HEADERS = {
    'Host': 'www.dianping.com',
 }
 
-# Enable or disable spider middlewares
-# See http://scrapy.readthedocs.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'dianping.middlewares.MyCustomSpiderMiddleware': 543,
-#}
-
 DUPEFILTER_CLASS = 'dianping.middlewares.duplicate_filter.DuplicateFilter'
 
 # Enable or disable downloader middlewares

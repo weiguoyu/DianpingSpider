@@ -14,12 +14,12 @@ class XingzhengquSpider(CrawlSpider):
     allowed_domains = ["dianping.com"]
     shops_count = 0
     #  start_urls = ["http://www.dianping.com/search/keyword/1/0_咖喱米粉店"]
-    start_urls = ["http://www.dianping.com/search/keyword/1/0_早餐"]
+    start_urls = ["http://www.dianping.com/search/keyword/1/0_早餐面馆"]
     rules = (
             # rule for xingzhengqu
             Rule(LinkExtractor(allow=(r'\w*'), restrict_xpaths='//div[@class="nav-category nav-tabs"]'
                 '//div[@class="nc-contain"]//div[@id="J_nt_items"]'
-                '//div[@id="region-nav"]//a'), follow=True, callback="test"),
+                '//div[@id="region-nav"]//a'), follow=True),
             # rule for local area belongs to corresponding xingzhenqu
             Rule(LinkExtractor(allow=(r'\w*'), restrict_xpaths='//div[@class="nav-category nav-tabs"]'
                 '//div[@class="nc-contain"]//div[@id="J_nt_items"]'
@@ -31,9 +31,9 @@ class XingzhengquSpider(CrawlSpider):
                 '[@target="_blank"]'), follow=True, callback='parse_dianping'),
             )
 
-    def test(self, response):
-        print response.request.headers
-        print response.request
+    #  def test(self, response):
+        #  print response.request.headers
+        #  print response.request
 
     def parse_dianping(self, response):
 
@@ -51,5 +51,5 @@ class XingzhengquSpider(CrawlSpider):
         item['shop_city'] = res.xpath('//a[@class="city J-city"]//text()').extract()[0].strip()
         self.shops_count += 1
         print "%d shops are crawled." %self.shops_count
-        print response.headers
+        #  print response.headers
         yield item
