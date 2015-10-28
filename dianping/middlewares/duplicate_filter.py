@@ -3,7 +3,7 @@
 
 from scrapy.dupefilters import RFPDupeFilter
 from pybloomfilter import BloomFilter
-#  from scrapy.utils.request import request_fingerprint
+from scrapy.utils.request import request_fingerprint
 import os
 
 PATH = os.path.dirname(os.path.join(os.path.pardir, os.path.dirname(__file__)))
@@ -19,18 +19,17 @@ class DuplicateFilter(RFPDupeFilter):
             self.url_filter = BloomFilter.open(FILTER_PATH)
         else:
             print "created a new bloom filter. "
-            self.url_filter = BloomFilter(10000, 0.001, FILTER_PATH)
+            self.url_filter = BloomFilter(100000, 0.00001, FILTER_PATH)
         super(DuplicateFilter, self).__init__(path, debug)
 
-
-    #  def request_fingerprint(self, request):
-        #  return request_fingerprint(request)
+    def request_fingerprint(self, request):
+        return request_fingerprint(request)
 
     def request_seen(self, request):
-        #  fp = self.request_fingerprint(request)
-        if self.url_filter.add(request):
-            print ">" * 10 + "filtered " + request.url
+        fp = self.request_fingerprint(request)
+        if self.url_filter.add(fp):
+            print ">" * 5 + "filtered " + request.url + "<" * 5
             return True
-        else:
-            return False
 
+    def close(self, reason):
+        self.url_filter = None
