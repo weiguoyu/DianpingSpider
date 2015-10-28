@@ -38,11 +38,12 @@ COOKIES_ENABLED=False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-   'Referer': 'http://www.dianping.com/search/keyword/1/0_%E6%97%A9%E9%A4%a',
+   #  'Referer': 'http://www.dianping.com/search/keyword/1/0_%E6%97%A9%E9%A4%a',
    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
    #  'Accept': '*/*',
    #  'Accept-Encoding': 'gzip,deflate',
    'Cache-Control': 'max-age=0',
+   'Host': 'www.dianping.com',
 }
 
 # Enable or disable spider middlewares
@@ -109,6 +110,9 @@ REDIRECT_MAX_TIMES=0
 #HTTPCACHE_DIR='httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES=[]
 #HTTPCACHE_STORAGE='scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+# use for adding referer information to request automatically
+REFERER_ENABLED=True
 
 MYSQL_HOST='localhost'
 MYSQL_DBNAME='dianping'
