@@ -73,8 +73,8 @@ class MySQLStorePipeline(object):
             conn.execute("insert into dianping(md5id, shop_name, shop_address, "
                          "shop_region, shop_city, shop_latitude, shop_longitude) "
                          "values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')"
-                         % (md5id, item["shop_name"], item["shop_address"], item["shop_region"],
-                            item["shop_city"], item["shop_latitude"], item["shop_longitude"]))
+                         % (md5id, item["shop_name"].replace('\'','\\\''), item["shop_address"].replace('\'','\\\''),
+                            item["shop_region"], item["shop_city"], item["shop_latitude"], item["shop_longitude"]))
             log.info("Item stored in db: %s" % item)
 
     def __handle_error(self, e, item, spider):
