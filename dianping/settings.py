@@ -16,7 +16,7 @@ NEWSPIDER_MODULE = 'dianping.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKiSt/537.1 (KHTML, lik)"
+#  USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKiSt/537.1 (KHTML, lik)"
 
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
@@ -25,7 +25,7 @@ CONCURRENT_REQUESTS=16
 # Configure a delay for requests for the same website (default: 0)
 # See http://scrapy.readthedocs.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY=3
+#  DOWNLOAD_DELAY=3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN=16
 #CONCURRENT_REQUESTS_PER_IP=16
@@ -38,9 +38,11 @@ COOKIES_ENABLED=False
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
+   'Referer': 'http://www.dianping.com/search/keyword/1/0_%E6%97%A9%E9%A4%a',
    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-   'Referer': 'http://www.dianping.com/',
-   'Accept-Encoding': 'gzip,deflate'
+   #  'Accept': '*/*',
+   #  'Accept-Encoding': 'gzip,deflate',
+   'Cache-Control': 'max-age=0',
 }
 
 # Enable or disable spider middlewares
@@ -49,7 +51,7 @@ DEFAULT_REQUEST_HEADERS = {
 #    'dianping.middlewares.MyCustomSpiderMiddleware': 543,
 #}
 
-DUPLICATE_CLASS = 'dianping.middlewares.duplicate_dilter.DuplicateFilter'
+DUPEFILTER_CLASS = 'dianping.middlewares.duplicate_filter.DuplicateFilter'
 
 # Enable or disable downloader middlewares
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html
@@ -90,9 +92,9 @@ ITEM_PIPELINES = {
 # NOTE: AutoThrottle will honour the standard settings for concurrency and delay
 AUTOTHROTTLE_ENABLED=True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY=7
+AUTOTHROTTLE_START_DELAY=3
 # The maximum download delay to be set in case of high latencies
-AUTOTHROTTLE_MAX_DELAY=60
+AUTOTHROTTLE_MAX_DELAY=30
 # Enable showing throttling stats for every response received:
 AUTOTHROTTLE_DEBUG=False
 
