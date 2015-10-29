@@ -54,11 +54,13 @@ DOWNLOADER_MIDDLEWARES = {
         #  'dianping.middlewares.MyCustomDownloaderMiddleware': 543,
         #  Engine side
         'scrapy.downloadermiddlewares.robotstxt.RobotsTxtMiddleware': 100,
+        #  'dianping.middlewares.proxy_middleware.ProxyMiddleware': 110,
         'scrapy.downloadermiddlewares.httpauth.HttpAuthMiddleware': 300,
         'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 350,
         'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
         'dianping.middlewares.random_user_agent.RandomUserAgentMiddleware': 400,
-        'scrapy.downloadermiddlewares.retry.RetryMiddleware': 500,
+        'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+        'dianping.middlewares.retry.CustomRetryMiddleware': 500,
         'scrapy.downloadermiddlewares.defaultheaders.DefaultHeadersMiddleware': 550,
         #  'scrapy.downloadermiddlewares.redirect.RedirectMiddleware': 600,
         'scrapy.downloadermiddlewares.cookies.CookiesMiddleware': 700,
@@ -96,6 +98,12 @@ AUTOTHROTTLE_DEBUG=False
 REDIRECT_MAX_TIMES=0
 
 # DEPTH_LIMIT = 5
+
+# retry settings
+RETRY_ENABLED = True
+RETRY_TIMES = 5 # initial response + 2 retries = 3 requests
+RETRY_HTTP_CODES = [403, 500, 503, 504, 400, 408]
+RETRY_PRIORITY_ADJUST = -1
 
 # Enable and configure HTTP caching (disabled by default)
 # See http://scrapy.readthedocs.org/en/latest/topics/downloader-middleware.html#httpcache-middleware-settings

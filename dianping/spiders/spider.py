@@ -14,7 +14,7 @@ class XingzhengquSpider(CrawlSpider):
     allowed_domains = ["dianping.com"]
     shops_count = 0
     #  start_urls = ["http://www.dianping.com/search/keyword/1/0_咖喱米粉店"]
-    start_urls = ["http://www.dianping.com/search/keyword/1/0_早餐面馆"]
+    start_urls = ["http://www.dianping.com/search/keyword/1/0_早餐"]
     rules = (
             # rule for xingzhengqu
             Rule(LinkExtractor(allow=(r'\w*'), restrict_xpaths='//div[@class="nav-category nav-tabs"]'
