@@ -61,3 +61,5 @@ target/
 # bloom filter
 filter/
 venv/
+crawls/
+ip/
