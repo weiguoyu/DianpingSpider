@@ -12,7 +12,9 @@ import MySQLdb.cursors
 import logging
 
 log = logging.getLogger("dianping")
-formatter = logging.Formatter('%(name)-12s %(asctime)s %(levelname)-8s %(message)s', '%a, %d %b %Y %H:%M:%S',)
+formatter = logging.Formatter(
+    '%(name)-12s %(asctime)s %(levelname)-8s %(message)s',
+    '%a, %d %b %Y %H:%M:%S',)
 file_handler = logging.FileHandler("dianping.log")
 file_handler.setLevel(logging.DEBUG)
 stream_handler = logging.StreamHandler()
@@ -70,18 +72,31 @@ class MySQLStorePipeline(object):
         if ret:
             log.warn("Item already stored in db: %s" % item)
         else:
-            conn.execute("insert into dianping(md5id, shop_name, shop_address, "
-                         "shop_region, shop_city, shop_latitude, shop_longitude) "
-                         "values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')"
-                         % (md5id, item["shop_name"].replace('\'','\\\''), item["shop_address"].replace('\'','\\\''),
-                            item["shop_region"], item["shop_city"], item["shop_latitude"], item["shop_longitude"]))
+            conn.execute(
+                "insert into dianping(md5id, shop_name, shop_address,"
+                "shop_region, shop_city, shop_latitude, shop_longitude)"
+                "values ('%s', '%s', '%s', '%s', '%s', '%s', '%s')"
+                % (
+                    md5id,
+                    item["shop_name"].replace('\'','\\\''),
+                    item["shop_address"].replace('\'','\\\''),
+                    item["shop_region"],
+                    item["shop_city"],
+                    item["shop_latitude"],
+                    item["shop_longitude"]
+                )
+            )
             log.info("Item stored in db: %s" % item)
 
     def __handle_error(self, e, item, spider):
         log.error(e)
 
     def _get_md5id(self, item):
-        return md5(" ".join([item["shop_name"], item["shop_latitude"],
-                             item["shop_longitude"]]).encode("utf8")).hexdigest()
+        return md5(
+            " ".join([
+                item["shop_name"],
+                item["shop_latitude"],
+                item["shop_longitude"]
+            ]).encode("utf8")).hexdigest()
 
 

@@ -8,7 +8,7 @@ create table `dianping` (
   `md5id` varchar(255) not null unique,
   `shop_name` varchar(255) not null,
   `shop_address` varchar(255) not null,
-  `shop_region` varchar(255) not null,
+  `shop_region` varchar(255) not bull,
   `shop_city` varchar(255) not null,
   `shop_latitude` varchar(255) not null,
   `shop_longitude` varchar(255) not null,

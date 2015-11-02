@@ -1,7 +1,10 @@
-#!/usr/bin/env python
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
-# Importing base64 library because we'll need it ONLY in case if the proxy we are going to use requires authentication
+"""
+Importing base64 library because we'll need it ONLY in case
+if the proxy we are going to use requires authentication
+"""
+
 import base64
 
 YOUR_PROXY_IP = "121.32.52.10"

@@ -1,5 +1,4 @@
-#!/usr/bin/env python
-# encoding: utf-8
+# -*- coding: utf-8 -*-
 
 from scrapy.dupefilters import RFPDupeFilter
 from pybloomfilter import BloomFilter
