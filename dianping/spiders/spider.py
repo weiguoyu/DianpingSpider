@@ -12,6 +12,7 @@ class XingzhengquSpider(CrawlSpider):
     shops_count = 0
     categary = "早餐"
     start_urls = ["http://www.dianping.com/citylist/citylist?citypage=1"]
+    #start_urls = ["http://www.dianping.com/search/keyword/1/0_早餐"]
     rules = (
         # rule for city
         Rule(
@@ -23,7 +24,7 @@ class XingzhengquSpider(CrawlSpider):
         ),
         # rule for xingzhengqu
         Rule(
-            LinkExtractor(restrict_xpaths='//div[@id="region-nav-sub"]//a'),
+            LinkExtractor(restrict_xpaths='//div[@id="region-nav"]//a'),
             follow=True
         ),
         # rule for local area belongs to corresponding xingzhenqu
