@@ -62,4 +62,6 @@ target/
 filter/
 venv/
 crawls/
-ip/
+*.sql
+ip.txt
+*.pyc

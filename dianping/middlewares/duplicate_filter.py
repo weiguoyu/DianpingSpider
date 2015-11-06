@@ -25,10 +25,11 @@ class DuplicateFilter(RFPDupeFilter):
         return request_fingerprint(request)
 
     def request_seen(self, request):
-        fp = self.request_fingerprint(request)
-        if self.url_filter.add(fp):
-            print ">" * 5 + "filtered " + request.url + "<" * 5
-            return True
+        if request.url.startswith("http://www.dianping.com/shop/"):
+            fp = self.request_fingerprint(request)
+            if self.url_filter.add(fp):
+                print ">" * 5 + "filtered " + request.url + "<" * 5
+                return True
 
     def close(self, reason):
         self.url_filter = None

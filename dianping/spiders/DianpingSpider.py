@@ -6,7 +6,7 @@ from scrapy.spiders import CrawlSpider, Rule
 from scrapy.linkextractors import LinkExtractor
 
 
-class XingzhengquSpider(CrawlSpider):
+class DianpingSpider(CrawlSpider):
     name = "DianpingSpider"
     allowed_domains = ["dianping.com"]
     shops_count = 0
@@ -70,7 +70,11 @@ class XingzhengquSpider(CrawlSpider):
             'span[@itemprop="street-address"]/@title').extract()[0]
         lng_atr = response.xpath('//div[@id="aside"]/script/text()')\
             .re(r"lng:(\d*.\d*),lat:(\d*.\d*)")
-        item['shop_longitude'], item['shop_latitude'] = lng_atr
+        try:
+            item['shop_longitude'], item['shop_latitude'] = lng_atr
+        except ValueError as error:
+            item['shop_longitude'], item['shop_latitude'] = 0, 0
+            print "There is no longitude nor latitude of the shop!"
         item['shop_city'] = response.xpath(
             '//a[@class="city J-city"]//text()').extract()[0].strip()
         item['shop_region'] = response.xpath(
