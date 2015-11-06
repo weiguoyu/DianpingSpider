@@ -5,7 +5,6 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: http://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
-import json
 from twisted.enterprise import adbapi
 from hashlib import md5
 import MySQLdb.cursors
@@ -25,24 +24,9 @@ log.addHandler(file_handler)
 log.addHandler(stream_handler)
 
 
-class TutorialPipeline(object):
-    def process_item(self, item, spider):
-        return item
-
-class JsonWriterPipeline(object):
-    def __init__(self):
-        self.file = open('items.jl', 'wb')
-
-    def process_item(self, item, spider):
-        line = json.dumps(dict(item)) + "\n"
-        self.file.write(line)
-        return item
-
-    def close_spider(self, spider):
-        self.file.close()
-
-
 class MySQLStorePipeline(object):
+
+
     def __init__(self, dbpool):
         self.dbpool = dbpool
 
@@ -61,9 +45,20 @@ class MySQLStorePipeline(object):
         return cls(dbpool)
 
     def process_item(self, item, spider):
-        d = self.dbpool.runInteraction(self._insert, item, spider)
-        d.addErrback(self.__handle_error, item, spider)
-        return item
+        if spider.name == 'DianpingSpider':
+            d = self.dbpool.runInteraction(self._insert, item, spider)
+            d.addErrback(self.__handle_error, item, spider)
+            return item
+        elif spider.name == 'IpSpider':
+            with open("ip.txt", "w") as ip_pool:
+                for keys in item['agent'].keys():
+                    ip_pool.writelines(keys + ':' + item['agent'][keys] + '\n')
+            return item
+
+    #  def close_spider(self, spider):
+        #  print self.ip_port
+        #  settings = spider.settings
+        #  settings.set('IP_PORT', self.ip_port)
 
     def _insert(self, conn, item, spider):
         md5id = self._get_md5id(item)
@@ -98,5 +93,3 @@ class MySQLStorePipeline(object):
                 item["shop_latitude"],
                 item["shop_longitude"]
             ]).encode("utf8")).hexdigest()
-
-

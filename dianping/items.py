@@ -15,3 +15,7 @@ class DianpingItem(scrapy.Item):
     shop_city = scrapy.Field()
     shop_latitude = scrapy.Field()
     shop_longitude = scrapy.Field()
+
+
+class IpProxyItem(scrapy.Item):
+    agent = scrapy.Field()
