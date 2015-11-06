@@ -9,7 +9,10 @@ from twisted.enterprise import adbapi
 from hashlib import md5
 import MySQLdb.cursors
 import logging
+import os
 
+path = os.path.abspath(os.path.dirname(__file__))
+print path
 log = logging.getLogger("dianping")
 formatter = logging.Formatter(
     '%(name)-12s %(asctime)s %(levelname)-8s %(message)s',
@@ -50,7 +53,7 @@ class MySQLStorePipeline(object):
             d.addErrback(self.__handle_error, item, spider)
             return item
         elif spider.name == 'IpSpider':
-            with open("ip.txt", "w") as ip_pool:
+            with open(os.path.join(path, "ip.txt"), "w") as ip_pool:
                 for keys in item['agent'].keys():
                     ip_pool.writelines(keys + ':' + item['agent'][keys] + '\n')
             return item

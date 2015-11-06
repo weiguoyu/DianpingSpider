@@ -3,11 +3,14 @@
 from scrapy.downloadermiddlewares.retry import RetryMiddleware
 import logging
 import random
+import os
 
 
 logger = logging.getLogger(__name__)
 PROXY_PORT = {}
-with open("ip.txt", "r") as ip_pool:
+path = os.path.abspath(os.path.dirname(os.path.join(os.path.pardir, os.path.dirname(__file__))))
+
+with open(os.path.join(path, "ip.txt"), "r") as ip_pool:
     for lines in ip_pool.readlines():
         ip, port = lines.split(":")
         PROXY_PORT.update({ip: port})
